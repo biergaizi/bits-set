@@ -26,6 +26,6 @@ uint16_t bits2hex(bit_array *bits, size_t index);
 void char2bits(bit_array *bits, size_t index, char chr);
 char bits2char(bit_array *bits, size_t index);
 
-// void bits_left_shift(bit *bits, int len, int offset);
+void bits_left_shift(bit_array *bits, int len, int offset);
 
 #endif

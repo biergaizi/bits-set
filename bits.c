@@ -76,17 +76,36 @@ char bits2char(bit_array *bits, size_t index)
 }
 
 
-/*
 void bits_left_shift(bit_array *bits, int len, int offset)
 {
     assert(len > 0);
 
     // A very stupid algorithm, but easy to understand.
-    bit tmp[len];
+    bit_array tmp[SIZE(len)];
     for (int i = 0; i < offset; i++) {
-        memcpy(tmp, bits + 1, (len - 1) * sizeof(bit));
-        tmp[len - 1] = bits[0];
-        memcpy(bits, tmp, len * sizeof(bit));
+        for (int j = 0; j < len - 1; j++) {
+            if (get_bit(bits, j + 1)) {
+                set_bit(tmp, j);
+            }
+            else {
+                clear_bit(tmp, j);
+            }
+        }
+
+        if (get_bit(bits, 0)) {
+            set_bit(tmp, len - 1);
+        }
+        else {
+            clear_bit(tmp, len - 1);
+        }
+
+        for (int j = 0; j < len; j++) {
+            if (get_bit(tmp, j)) {
+                set_bit(bits, j);
+            }
+            else {
+                clear_bit(bits, j);
+            }
+        }
     }
 }
-*/

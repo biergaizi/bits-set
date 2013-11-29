@@ -61,11 +61,43 @@ static void test3(void)
 }
 
 
+static void test4(void)
+{
+    static bit_array bits[SIZE(4)] = {};
+
+    set_bit(bits, 0);
+    set_bit(bits, 1);
+    clear_bit(bits, 2);
+
+    assert(get_bit(bits, 0) == 1);
+    assert(get_bit(bits, 1) == 1);
+    assert(get_bit(bits, 2) == 0);
+
+    bits_left_shift(bits, 3, 1);
+
+    assert(get_bit(bits, 0) == 1);
+    assert(get_bit(bits, 1) == 0);
+    assert(get_bit(bits, 2) == 1);
+
+    assert(get_bit(bits, 3) == 0);
+
+    bits_left_shift(bits, 4, 1);
+
+    assert(get_bit(bits, 0) == 0);
+    assert(get_bit(bits, 1) == 1);
+    assert(get_bit(bits, 2) == 0);
+    assert(get_bit(bits, 3) == 1);
+
+    printf("Test4 Passed!\n");
+}
+
+
 int main(void)
 {
 
     test1();
     test2();
     test3();
+    test4();
     return 0;
 }
