@@ -5,7 +5,7 @@
 
 static void test1(void)
 {
-    bit_array bits[SIZE(10)] = {0};
+    static bit_array bits[SIZE(10)] = {0};
 
     assert(get_bit(bits, 0) == 0);
 
@@ -28,13 +28,36 @@ static void test1(void)
 
 static void test2(void)
 {
-    bit_array test1_bits[SIZE(18)] = {};
+    static bit_array bits[SIZE(40)] = {};
 
-    uint16_t test1_int = 30767;
-    hex2bits(test1_bits, 0, test1_int);
-    assert(bits2hex(test1_bits, 0) == 30767);
+    hex2bits(bits, 0, 30767);
+    hex2bits(bits, 16, 30111);
+
+    assert(bits2hex(bits, 0) == 30767);
+    assert(bits2hex(bits, 16) == 30111);
+
+    for (size_t i = 32; i < 40; i++) {
+        assert(get_bit(bits, i) == 0);
+    }
 
     printf("Test2 Passed!\n");
+}
+
+
+static void test3(void)
+{
+    static bit_array bits[SIZE(20)] = {};
+
+    char2bits(bits, 0, 'B');
+    char2bits(bits, 8, 'C');
+
+    assert(bits2char(bits, 0) == 'B');
+    assert(bits2char(bits, 8) == 'C');
+
+    for (size_t i = 16; i < 20; i++) {
+        assert(get_bit(bits, i) == 0);
+    }
+    printf("Test3 Passed!\n");
 }
 
 
@@ -43,5 +66,6 @@ int main(void)
 
     test1();
     test2();
+    test3();
     return 0;
 }
