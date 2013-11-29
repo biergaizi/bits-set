@@ -34,7 +34,7 @@ void hex2bits(bit_array *bits, size_t index, uint16_t hex)
         // Why Reversed Order? Cause By Litten-Endian Machines?
         // I don't know. I need to test it on Big-Endian with QEMU.
         if (BIT_CHECK(hex, 15 - i)) {
-            set_bit(bits, i);
+            set_bit(bits, i + index);
         }
     }
 }
@@ -45,7 +45,7 @@ uint16_t bits2hex(bit_array *bits, size_t index)
     uint16_t result = 0;
 
     for (short i = 0; i < 16; i++) {
-        if (get_bit(bits, i)) {
+        if (get_bit(bits, i + index)) {
             BIT_SET(result, 15 - i);
         }
     }
@@ -56,8 +56,8 @@ uint16_t bits2hex(bit_array *bits, size_t index)
 void char2bits(bit_array *bits, size_t index, char chr)
 {
     for (short i = 0; i < 8; i++) {
-        if (BIT_CHECK(chr, 8 - i)) {
-            get_bit(bits, i);
+        if (BIT_CHECK(chr, 7 - i)) {
+            set_bit(bits, i + index);
         }
     }
 }
@@ -68,8 +68,8 @@ char bits2char(bit_array *bits, size_t index)
     char result = 0;
 
     for (short i = 0; i < 8; i++) {
-        if (get_bit(bits, i)) {
-            BIT_SET(result, 8 - i);
+        if (get_bit(bits, i + index)) {
+            BIT_SET(result, 7 - i);
         }
     }
     return result;
