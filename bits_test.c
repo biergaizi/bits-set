@@ -5,7 +5,7 @@
 
 static void test1(void)
 {
-    static bit_array bits[SIZE(10)] = {0};
+    static bit_array bits[SIZE(40)] = {0};
 
     assert(get_bit(bits, 0) == 0);
 
@@ -19,7 +19,7 @@ static void test1(void)
     set_bit(bits, 3);
     assert(get_bit(bits, 3) == 1);
 
-    for (size_t i = 4; i < 10; i++) {
+    for (size_t i = 4; i < 40; i++) {
         assert(get_bit(bits, i) == 0);
     }
     printf("Test1 Passed!\n");
@@ -28,7 +28,7 @@ static void test1(void)
 
 static void test2(void)
 {
-    static bit_array bits[SIZE(40)] = {};
+    static bit_array bits[SIZE(40)] = {0};
 
     hex2bits(bits, 0, 30767);
     hex2bits(bits, 16, 30111);
@@ -46,7 +46,7 @@ static void test2(void)
 
 static void test3(void)
 {
-    static bit_array bits[SIZE(20)] = {};
+    static bit_array bits[SIZE(20)] = {0};
 
     char2bits(bits, 0, 'B');
     char2bits(bits, 8, 'C');
@@ -63,7 +63,7 @@ static void test3(void)
 
 static void test4(void)
 {
-    static bit_array bits[SIZE(4)] = {};
+    static bit_array bits[SIZE(4)] = {0};
 
     set_bit(bits, 0);
     set_bit(bits, 1);
