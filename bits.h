@@ -6,7 +6,7 @@
 #include <stdlib.h>
 
 typedef bool bit;
-typedef uint32_t bit_array;
+typedef uint32_t bit_array;  /* tests fail when using uint64_t, why? */
 typedef char byte;
 
 
