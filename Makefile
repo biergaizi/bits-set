@@ -1,7 +1,7 @@
 CC=gcc
 
 DEBUG=-O0
-RELEASE=-O2
+RELEASE=-Ofast
 CFLAGS=-std=c99 -Wall -Wextra
 
 test:
