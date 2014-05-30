@@ -8,8 +8,7 @@ Examples
 
 Sorting 10 thousand integers?
 
-bit-sets
-~~~~~~~~
+### bit-sets
 
 *bits_sort.c*
 
@@ -42,8 +41,7 @@ int main(void)
 }
 ```
 
-Python
-~~~~~~~
+### Python
 
 *simple_sort.py*
 
@@ -61,15 +59,13 @@ for i in nums:
     print(i)
 ```
 
-Unix
-~~~~~
+### Unix
 
 ```bash
 sort -n ./1-9999-random-numbers
 ```
 
-Benchmark
-~~~~~~~~~~~
+### Benchmark
 
 All binaries were compiled with `-O2 -march=native`.
 
