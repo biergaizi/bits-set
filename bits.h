@@ -6,7 +6,7 @@
 #include <stdlib.h>
 
 typedef bool bit;
-typedef uint32_t bit_array;  /* tests fail when using uint64_t, why? */
+typedef uint32_t bit_array;
 typedef char byte;
 
 
@@ -18,9 +18,9 @@ typedef char byte;
 
 #define SIZE_IN_BITS(i) (sizeof(i) * 8)
 #define SIZE(i) (devide_ceil((i), SIZE_IN_BITS(bit_array)))
-#define BIT_SET(a,x) ((a) |= (1 << (x)))
-#define BIT_CLEAR(a,x) ((a) &= ~(1 << (x)))
-#define BIT_CHECK(a,x) (((a) & (1 << (x))) != 0)
+#define BIT_SET(a,x) ((a) |= ((bit_array) 1 << (x)))
+#define BIT_CLEAR(a,x) ((a) &= ~((bit_array) 1 << (x)))
+#define BIT_CHECK(a,x) (((a) & ((bit_array) 1 << (x))) != 0)
 
 
 bit get_bit(bit_array *bits, size_t index);
