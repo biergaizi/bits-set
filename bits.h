@@ -6,7 +6,7 @@
 #include <stdlib.h>
 
 typedef bool bit;
-typedef uint32_t bit_array;
+typedef uint_fast16_t bit_array;
 typedef char byte;
 
 
