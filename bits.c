@@ -3,6 +3,18 @@
 #include <string.h>
 #include "bits.h"
 
+#if __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
+#define CHAR_ENDIAN(x) (7 - x)
+#define HEX_ENDIAN(x) (15 - x)
+
+#elif __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__
+#define CHAR_ENDIAN(x) (x)
+#define HEX_ENDIAN(x) (x)
+
+#else
+#error "Unsupported Architecture"
+
+#endif
 
 bit get_bit(bit_array *bits, size_t index)
 {
@@ -31,9 +43,7 @@ void clear_bit(bit_array *bits, size_t index)
 void hex2bits(bit_array *bits, size_t index, uint16_t hex)
 {
     for (short i = 0; i < 16; i++) {
-        // Why Reversed Order? Cause By Litten-Endian Machines?
-        // I don't know. I need to test it on Big-Endian with QEMU.
-        if (BIT_CHECK(hex, 15 - i)) {
+        if (BIT_CHECK(hex, HEX_ENDIAN(i))) {
             set_bit(bits, i + index);
         }
     }
@@ -46,7 +56,7 @@ uint16_t bits2hex(bit_array *bits, size_t index)
 
     for (short i = 0; i < 16; i++) {
         if (get_bit(bits, i + index)) {
-            BIT_SET(result, 15 - i);
+            BIT_SET(result, HEX_ENDIAN(i));
         }
     }
     return result;
@@ -56,7 +66,7 @@ uint16_t bits2hex(bit_array *bits, size_t index)
 void char2bits(bit_array *bits, size_t index, char chr)
 {
     for (short i = 0; i < 8; i++) {
-        if (BIT_CHECK(chr, 7 - i)) {
+        if (BIT_CHECK(chr, CHAR_ENDIAN(i))) {
             set_bit(bits, i + index);
         }
     }
@@ -69,7 +79,7 @@ char bits2char(bit_array *bits, size_t index)
 
     for (short i = 0; i < 8; i++) {
         if (get_bit(bits, i + index)) {
-            BIT_SET(result, 7 - i);
+            BIT_SET(result, CHAR_ENDIAN(i));
         }
     }
     return result;
