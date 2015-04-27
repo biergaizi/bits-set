@@ -30,11 +30,11 @@ static void test2(void)
 {
     static bit_array bits[SIZE(40)] = {0};
 
-    hex2bits(bits, 0, 30767);
-    hex2bits(bits, 16, 30111);
+    hex2bits(bits, 0, 12450);
+    hex2bits(bits, 16, 11037);
 
-    assert(bits2hex(bits, 0) == 30767);
-    assert(bits2hex(bits, 16) == 30111);
+    assert(bits2hex(bits, 0) == 12450);
+    assert(bits2hex(bits, 16) == 11037);
 
     for (size_t i = 32; i < 40; i++) {
         assert(get_bit(bits, i) == 0);
