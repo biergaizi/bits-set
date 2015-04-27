@@ -85,37 +85,24 @@ char bits2char(bit_array *bits, size_t index)
     return result;
 }
 
-
-void bits_left_shift(bit_array *bits, int len, int offset)
+void bits_shift(bit_array *bits, int len, int offset)
 {
-    assert(len > 0);
-
-    // A very stupid algorithm, but easy to understand.
-    bit_array tmp[SIZE(len)];
-    for (int i = 0; i < offset; i++) {
-        for (int j = 0; j < len - 1; j++) {
-            if (get_bit(bits, j + 1)) {
-                set_bit(tmp, j);
-            }
-            else {
-                clear_bit(tmp, j);
-            }
-        }
-
-        if (get_bit(bits, 0)) {
-            set_bit(tmp, len - 1);
-        }
-        else {
-            clear_bit(tmp, len - 1);
-        }
-
-        for (int j = 0; j < len; j++) {
-            if (get_bit(tmp, j)) {
-                set_bit(bits, j);
-            }
-            else {
-                clear_bit(bits, j);
-            }
-        }
+    offset %= len;
+    if (offset < 0) {
+        offset = len - (-offset);
     }
+
+    for (int i = 0; i < offset; i++) {
+       bool tmp =  get_bit(bits, 0);
+       for (int j = 1; j < len; j++) {
+            get_bit(bits, j) ? set_bit(bits, 0) : clear_bit(bits, 0);
+            tmp ? set_bit(bits, j) : clear_bit(bits, j);
+            tmp = get_bit(bits, 0);
+       }
+    }
+}
+
+inline void bits_left_shift(bit_array *bits, int len, int offset)
+{
+    bits_shift(bits, len, -offset);
 }
