@@ -1,5 +1,7 @@
-bits-set
+#DeleteGithub
 ==============
+**Deleted!** This project is moved to [notabug.org](https://notabug.org/niconiconi/bits-set), welcome to join the free world!
+
 Simple library to set/get every single bits.
 
 
